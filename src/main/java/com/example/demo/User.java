@@ -3,33 +3,48 @@ package com.example.demo;
 import javax.persistence.*;
 import java.util.Collection;
 
+@Entity
+@Table(name = "USER_DATA")
 public class User
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
+    private long id;
 
-    @Column(name="email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name ="firstname")
-    private String firsName;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @Column(name ="lastname")
-    private String lastname;
+    @Column(name = "last_name")
+    private String lastName;
 
-    @Column(name ="enabled")
+    @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    public User(String email, String password, String firstName, String lastName, boolean enabled, String username) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+    }
+
+    public User() {
+    }
 
     public long getId() {
         return id;
@@ -55,20 +70,20 @@ public class User
         this.password = password;
     }
 
-    public String getFirsName() {
-        return firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
     public boolean isEnabled() {

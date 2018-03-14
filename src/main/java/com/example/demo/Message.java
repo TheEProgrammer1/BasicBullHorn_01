@@ -46,8 +46,9 @@ public class Message
         return sentby;
     }
 
-    public void setSentby(String sentby) {
-        this.sentby = sentby;
+    public void setSentby(String sentby)
+    {
+            this.sentby = sentby;
     }
 
 

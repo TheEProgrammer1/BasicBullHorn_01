@@ -18,29 +18,30 @@ public class HomeController
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model)
     {
         model.addAttribute("user", new User());
-        return "registration";
+        return  "registration";
     }
-
-    @RequestMapping(value="/registration", method = RequestMethod.POST)
-    public String processRegisrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model)
     {
         model.addAttribute("user", user);
         if(result.hasErrors())
         {
-            return "regisration";
+            return "registration";
         }
         else
         {
             userService.saveUser(user);
-            model.addAttribute("message", "User Account Successfully Created");
+            model.addAttribute("message", "userAcount Successfully Created");
         }
 
-        return "index";
+
+        return "list";
     }
+
 
 
 
@@ -48,6 +49,7 @@ public class HomeController
     public String listCourse(Model model)
     {
         model.addAttribute("messages", messageRepository.findAll());
+
         return "list";
     }
 

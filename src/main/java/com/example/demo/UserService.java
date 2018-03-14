@@ -1,8 +1,10 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateCustomizer;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.Arrays;
 
 @Service
@@ -24,14 +26,15 @@ public class UserService
     {
         return userRepository.findByEmail(email);
     }
-    public Long countByEmail(String email)
+
+    public User findByUsername(String username)
     {
-        return userRepository.countByEmail(email);
+        return userRepository.findByEmail(username);
     }
 
-    public User findByUserName(String username)
+    public Long countByEamil(String email)
     {
-        return userRepository.findByUserName(username);
+        return  userRepository.countByEmail(email);
     }
 
     public void saveUser(User user)
@@ -46,6 +49,7 @@ public class UserService
         user.setRoles(Arrays.asList(roleRepository.findByRole("ADMIN")));
         user.setEnabled(true);
         userRepository.save(user);
+
     }
 
 }
