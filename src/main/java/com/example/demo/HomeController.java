@@ -50,8 +50,17 @@ public class HomeController
 
 
     @RequestMapping("/")
-    public String listCourse(Model model)
+    public String listCourse(Model model, HttpServletRequest request, Authentication authentication, Principal principal)
     {
+
+        if(principal != authentication)
+        {
+            Boolean isAdmin = request.isUserInRole("ADMIN");
+            Boolean isUser = request.isUserInRole("USER");
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String username = principal.getName();
+        }
+
         model.addAttribute("messages", messageRepository.findAll());
 
         return "list";
@@ -79,7 +88,7 @@ public class HomeController
         String username = principal.getName();
         Message newMessage = new Message();
         newMessage.setSentby(username);
-        System.out.println("HELLO I AM HERE" + newMessage.getSentby());
+        //System.out.println("HELLO I AM HERE" + newMessage.getSentby());
 
         model.addAttribute("message", newMessage);
         return "messageForm";

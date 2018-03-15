@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>user Login</title>
-</head>
+<head th:replace="base :: headstuff"></head>
 <body>
+<nav th:replace="base :: navbar"></nav>
+<div class="container">
+    <div class="jumbotron">
+
     <div th:if="${param.error}">
         Invalid username and password.
     </div>
@@ -23,7 +24,13 @@
                 Password: <input type="password" name="password"/>
             </label>
         </div>
-        <div><input type="submit" value="Sign In"/></div>
+            <input class="btn btn-primary btn-lg" type="submit" role="button"></input>
+            <a class="btn btn-primary btn-lg" href="/register" role="button">Register</a>
     </form>
+
+    </div>
+</div>
+    <nav th:replace="base :: footer"></nav>
+    <th:block th:replace="base :: jslinks"></th:block>
 </body>
 </html>

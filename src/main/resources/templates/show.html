@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>Message</title>
@@ -9,5 +9,7 @@
     Content: <span th:text="${message.content}"></span><br/>
     Posted Date: <span th:text="${message.posteddate}"></span><br/>
     Sent By: <span th:text="${message.sentby}"></span><br/>
+
+
 </body>
 </html>
