@@ -21,9 +21,13 @@ public class Message
 
     private String content;
 
-
+    private String image;
     private String posteddate;
     private String sentby;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User user;
 
     public long getId() {
         return id;
@@ -59,5 +63,21 @@ public class Message
     public void setPosteddate(String posteddate) {
         Date date = new Date();
         this.posteddate = (date.toString());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

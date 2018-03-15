@@ -4,16 +4,16 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-    <form action="#" th:action="@{/process}" th:object="${message}" method="post">
+    <form action="#" th:action="@{/process}" th:object="${message}" method="POST" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" th:field="*{posteddate}"/>
         <input type="hidden" th:field="*{sentby}"/>
         <h3>Message:</h3> <br/>
-        <textarea rows="5" th:field="*{content}"/>
+            <textarea rows="5" th:field="*{content}"/>
         <span th:if="${#fields.hasErrors('content')}"
               th:errors="*{content}"></span><br/>
-
-        <input class="btn btn-primary btn-lg" type="submit" role="button"></input>
+        <input type="file" name="file"/><br/>
+        <input class="btn btn-primary btn-lg" type="submit" role="button"/>
     </form>
     </div>
 </div>

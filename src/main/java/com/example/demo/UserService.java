@@ -29,8 +29,9 @@ public class UserService
 
     public User findByUsername(String username)
     {
-        return userRepository.findByEmail(username);
+        return userRepository.findByUsername(username);
     }
+
 
     public Long countByEamil(String email)
     {

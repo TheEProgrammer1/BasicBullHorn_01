@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_DATA")
@@ -29,6 +32,11 @@ public class User
 
     @Column(name = "username")
     private String username;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Set<Message> messages;
+   // @Autowired
+    //UserMessagesRepository userMessagesRepository;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -109,4 +117,25 @@ public class User
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
+
+    /*
+    public void saveMessage(Message message)
+    {
+        userMessagesRepository.save(message);
+    }
+
+    public UserMessagesRepository getUserMessageRespository()
+    {
+        return this.userMessagesRepository;
+    }
+    */
+
 }
