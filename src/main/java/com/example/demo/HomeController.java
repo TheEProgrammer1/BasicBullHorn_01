@@ -2,12 +2,16 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class HomeController
@@ -66,9 +70,18 @@ public class HomeController
     }
 
     @GetMapping("/add")
-    public String messageForm(Model model)
+    public String messageForm(Model model, HttpServletRequest request, Authentication authentication, Principal principal)
     {
-        model.addAttribute("message", new Message());
+        Boolean isAdmin = request.isUserInRole("Admin");
+        Boolean isUer = request.isUserInRole("User");
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = principal.getName();
+        Message newMessage = new Message();
+        newMessage.setSentby(username);
+        System.out.println("HELLO I AM HERE" + newMessage.getSentby());
+
+        model.addAttribute("message", newMessage);
         return "messageForm";
     }
 
