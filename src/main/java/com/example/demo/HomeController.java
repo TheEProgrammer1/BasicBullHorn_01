@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class HomeController
@@ -28,6 +30,9 @@ public class HomeController
 
     @Autowired
     CloudinaryConfig cloudc;
+
+    @Autowired
+    UserMessagesRepository userMessagesRepository;
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -65,9 +70,9 @@ public class HomeController
             String username = principal.getName();
         }
 
-      // UserMessagesRepository userMessagesRepository = userService.(principal.getName()).getUserMessageRespository();
+        User currentUser = userService.findByUsername(principal.getName());
 
-        //model.addAttribute("messages", userMessagesRepository);
+        model.addAttribute("messages", userMessagesRepository.findAllBySentby(currentUser.getUsername()));
 
         return "userMessages";
     }
@@ -100,28 +105,7 @@ public class HomeController
     {
         return "list";
     }
-    /*
-    @PostMapping("/add")
-    public String newUser(@ModelAttribute Message message, @RequestParam("file")MultipartFile file)
-    {
-        if(file.isEmpty())
-        {
-            return "redirect:/add";
-        }
-        try
-        {
-            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
-            message.setImage(uploadResult.get("url").toString());
-            System.out.println("I am here");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return "redirect:/add";
-        }
 
-        return "redirect:/add";
-    }*/
     @GetMapping("/add")
     public String messageForm(Model model, HttpServletRequest request, Authentication authentication, Principal principal)
     {
@@ -143,6 +127,9 @@ public class HomeController
     @PostMapping("/process")
     public String processForm(@ModelAttribute Message message, @RequestParam("file")MultipartFile file, BindingResult result, Principal principal)
     {
+        User currentUser = userService.findByUsername(principal.getName());
+        Set<Message> messages = new HashSet<Message>();
+
         if(result.hasErrors())
         {
             return "messageForm";
@@ -151,7 +138,7 @@ public class HomeController
         if(file.isEmpty())
         {
            message.setImage(null);
-           //userService.findByUsername(principal.getName()).getMessages().add(message);
+
            messageRepository.save(message);
            return "redirect:/";
         }
@@ -167,7 +154,6 @@ public class HomeController
             return "redirect:/add";
         }
 
-       // userService.findByUsername(principal.getName()).getMessages().add(message);
         messageRepository.save(message);
         return "redirect:/";
     }

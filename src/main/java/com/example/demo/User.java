@@ -35,7 +35,7 @@ public class User
     private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Message> messages = new HashSet<Message>();
+    public Set<Message> messages;
    // @Autowired
     //UserMessagesRepository userMessagesRepository;
 
