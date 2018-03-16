@@ -6,7 +6,7 @@
 <nav th:replace="base :: navbar"></nav>
 <div class="container">
     <div class="jumbotron">
-        <table>
+        <table class="table table-striped">
           <!--  <tr>
                 <th>Content</th>
                 <th>Posted Date</th>
@@ -15,21 +15,22 @@
             <tr th:each="message : ${messages}">
                 <h2 th:text="${message.content}"></h2>
                 <h4 th:inline="text"> From: [[${message.sentby}]]</h4>
-                <div layout_width="75" layout_height="75" th:if="${message.image} != null">
-                    <img layout_width="75" layout_height="75" th:src="${message.image}"/><br/>
+                <div th:if="${message.image} != null">
+                    <img height="500" width="500" th:src="${message.image}"/><br/>
                 </div>
             </tr>
+
         </table><br /><br/>
 
 
         <p>
             <a class="btn btn-primary btn-lg" href="/add" role="button">Add a Message</a>
             <div sec:authorize="isAnonymous()">
-                <a class="btn btn-primary btn-lg" href="/register" role="button">Register</a>
+                <a class="btn btn-primary btn-lg" href="/login" role="button">login</a>
             </div>
-            <div sec:authorize="isAuthenticated()">
+            <!--<div sec:authorize="isAuthenticated()">
                 <a class="btn btn-primary btn-lg" href="/logout" role="button">Logout</a>
-            </div>
+            </div>-->
         </p>
     </div>
 </div>

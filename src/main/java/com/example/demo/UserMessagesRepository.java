@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserMessagesRepository extends CrudRepository<Message, Long>
 {
-    public Message findAllBySentby(String sentBy);
+    public Iterable<Message> findAllBySentby(String sentBy);
 }
