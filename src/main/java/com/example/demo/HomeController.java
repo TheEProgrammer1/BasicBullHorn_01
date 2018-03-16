@@ -141,7 +141,7 @@ public class HomeController
     }
 
     @PostMapping("/process")
-    public String processForm(@ModelAttribute Message message, @RequestParam("file")MultipartFile file, BindingResult result)
+    public String processForm(@ModelAttribute Message message, @RequestParam("file")MultipartFile file, BindingResult result, Principal principal)
     {
         if(result.hasErrors())
         {
@@ -151,6 +151,7 @@ public class HomeController
         if(file.isEmpty())
         {
            message.setImage(null);
+           //userService.findByUsername(principal.getName()).getMessages().add(message);
            messageRepository.save(message);
            return "redirect:/";
         }
@@ -166,7 +167,7 @@ public class HomeController
             return "redirect:/add";
         }
 
-
+       // userService.findByUsername(principal.getName()).getMessages().add(message);
         messageRepository.save(message);
         return "redirect:/";
     }
