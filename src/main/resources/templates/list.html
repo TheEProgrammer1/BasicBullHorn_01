@@ -8,13 +8,13 @@
     <div class="jumbotron">
         <ul class="list-group">
 
-                <li th:each="message : ${messages}">
+                <div th:each="message : ${messages}">
                     <h2 th:text="${message.content}"></h2>
                     <h4 th:inline="text"> From: [[${message.sentby}]]</h4>
                     <div th:if="${message.image} != null">
                         <img height="500" width="500" th:src="${message.image}"/><br/>
                     </div>
-                </li>
+                </div>
         </ul>
 
 
